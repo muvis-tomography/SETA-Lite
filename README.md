@@ -2,7 +2,7 @@
 
 This repository contains a downloadable executable tool for automated image reconstruction in Cone Beam Computed Tomography.
 
-[Download SETA Executable](https://drive.google.com/file/d/14YNoX5FEpeOV4pvCyJDuzzY87rWgAxiv/view?usp=drive_link)
+[Download SETA Executable]([https://drive.google.com/file/d/14YNoX5FEpeOV4pvCyJDuzzY87rWgAxiv/view?usp=drive_link](https://github.com/muvis-tomography/SETA-Lite/releases/tag/v1.0))
 
 You can view or download the project poster from the workshop here:
 [Download Poster PDF](./ToScA_UK&Europe_2025_poster.pdf)
