@@ -303,22 +303,22 @@ def sinogram_processing(data, mode, padding_ratio=0.25, fixed_background=False, 
     print(" Starting sinogram preprocessing...")
 
     try:
-        # 🌀 Convert data to float32 before processing
+        #  Convert data to float32 before processing
         if data.array.dtype != np.float32:
-            #print("🔄 Converting data to float32...")
+            #print(" Converting data to float32...")
             data.array = data.array.astype(np.float32)
 
-        # 🌟 Normalization (Transmission to Absorption Conversion)
+        #  Normalization (Transmission to Absorption Conversion)
         '''Converting data from transmission to attenuation values (it is known to be already centered and flat field corrected)'''
         if fixed_background:
             background = background_value
-            #print(f"🌟 Using fixed background intensity: {background}")
+            #print(f" Using fixed background intensity: {background}")
         else:
             if data.ndim == 3:
                 background = data.get_slice(vertical=10, force=True).as_array().mean()
             else:
                 background = data.as_array()[:, :50].mean()
-            #print(f"🌟 Calculated background intensity: {background}")
+            #print(f" Calculated background intensity: {background}")
 
         # Normalize data
         #print(" Normalizing data)
@@ -326,7 +326,7 @@ def sinogram_processing(data, mode, padding_ratio=0.25, fixed_background=False, 
         data_array /= background
         data.fill(data_array)  # Update data with normalized values
 
-        # ⚙Ensure data is explicitly float32 before conversion
+        # Ensure data is explicitly float32 before conversion
         data = AcquisitionData(array=data.as_array().astype(np.float32), geometry=data.geometry)
         
         del data_array  # Clean up memory
@@ -359,7 +359,7 @@ def sinogram_processing(data, mode, padding_ratio=0.25, fixed_background=False, 
 
         #  Negative Value Clipping (Cleaning
         '''Cleaning the bad pixel from sinogram (assing 0 below 0 values)'''
-        #print("🧼 Cleaning negative values...")
+        #print(" Cleaning negative values...")
         data_array = data.as_array()
         data_array[data_array < 0] = 0
         data.fill(data_array)
@@ -371,7 +371,7 @@ def sinogram_processing(data, mode, padding_ratio=0.25, fixed_background=False, 
         #  Padding (Mandatory)
         #print(" Applying padding...")
         padsize = int(data.shape[1] * padding_ratio)
-        #print(f"🔹 Padding size: {padsize} pixels")
+        #print(f" Padding size: {padsize} pixels")
         data = Padder.edge(pad_width={'horizontal': padsize})(data)
         #print(" Padding successful!")
         #print("Data Shape after Padding:", data.shape)
